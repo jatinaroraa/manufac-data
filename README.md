@@ -1,3 +1,10 @@
+##project screenshort
+![Screenshot from 2024-05-01 18-33-33](https://github.com/jatinaroraa/manufac-data/assets/148213890/fa6d8399-919c-43c2-866d-a9b7a8d166da)
+##Table 2
+
+![Screenshot from 2024-05-01 18-33-38](https://github.com/jatinaroraa/manufac-data/assets/148213890/bcc1734c-ad53-4b14-b738-9d9fbfe159f9)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
