@@ -1,7 +1,8 @@
 import React from "react";
 import { dataSet } from "../utils/DataSource/dataset";
-import TableCard from "../components/table/TableCard";
-import TableCardAvg from "../components/table/TableCardAvg";
+
+import MantineTable from "../components/table/MantineTable";
+import { Table } from "@mantine/core";
 
 export default function AverageCal() {
   let average = {};
@@ -16,7 +17,7 @@ export default function AverageCal() {
       let getYear = crop["Crop Name"];
 
       if (!average[getYear])
-        average[getYear] = { yield: null, cultivation: null };
+        average[getYear] = { yield: null, cultivation: null, total: 0 };
 
       if (
         average[getYear].yield == null &&
@@ -24,9 +25,12 @@ export default function AverageCal() {
       ) {
         average[getYear].yield =
           crop["Yield Of Crops (UOM:Kg/Ha(KilogramperHectare))"];
+        average[getYear].total += 1;
       } else if (crop["Yield Of Crops (UOM:Kg/Ha(KilogramperHectare))"] != "") {
         average[getYear].yield +=
           crop["Yield Of Crops (UOM:Kg/Ha(KilogramperHectare))"];
+
+        average[getYear].total += 1;
       }
 
       if (
@@ -43,7 +47,26 @@ export default function AverageCal() {
   };
 
   getAverage();
-  console.log(average, "average");
+  const rows = Object.entries(average).map((item) => {
+    let it1 = item[1].yield / item[1].total;
+    let it2 = item[1].cultivation / item[1].total;
 
-  return <TableCardAvg maxValues={average} tableHeading={tableHeading} />;
+    it1 = it1.toFixed(3);
+    it2 = it2.toFixed(3);
+    return (
+      <Table.Tr>
+        <Table.Td>{item[0]}</Table.Td>
+
+        <Table.Td>{it1}</Table.Td>
+        <Table.Td>{it2}</Table.Td>
+      </Table.Tr>
+    );
+  });
+
+  return (
+    <div>
+      <h1>Table2 </h1>
+      <MantineTable rows={rows} tableHeading={tableHeading} />
+    </div>
+  );
 }
