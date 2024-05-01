@@ -1,6 +1,9 @@
 import React from "react";
-import TableCard from "../components/table/TableCard";
+
 import { dataSet } from "../utils/DataSource/dataset";
+import { Table } from "@mantine/core";
+import MantineTable from "../components/table/MantineTable";
+import TableCard from "../components/table/TableCard";
 
 export default function MaxMinTable() {
   let max = {};
@@ -35,18 +38,20 @@ export default function MaxMinTable() {
   };
 
   maxMin();
-  console.log(max, "mm");
+
+  const rows = Object.entries(max).map((element) => (
+    <Table.Tr>
+      <Table.Td>{element[0]}</Table.Td>
+
+      <Table.Td>{element[1].max}</Table.Td>
+      <Table.Td>{element[1].min}</Table.Td>
+    </Table.Tr>
+  ));
   return (
     <div>
-      <h2
-        style={{
-          textAlign: "center",
-        }}
-      >
-        {" "}
-        Table 1
-      </h2>
-      <TableCard minValues={min} maxValues={max} tableHeading={tableHeading} />
+      <h1>Table 1</h1>
+
+      <MantineTable rows={rows} tableHeading={tableHeading} />
     </div>
   );
 }
